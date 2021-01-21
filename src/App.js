@@ -1,12 +1,23 @@
-import Navbar from "./components/Navbar/Navbar"
+import Navbar from "./components/Navbar/Navbar";
 //import ImgContainer from "./components/ImgContainer"
-import BeatmapCardsContainer from './components/BeatmapCards/BeatmapCardsContainer'
-import './App.css';
+import BeatmapCardsContainer from "./components/BeatmapCards/BeatmapCardsContainer";
+
+import { BrowserRouter as Router, Switch, Route, Link } from "react-router-dom";
+import "./App.css";
+import BeatmapContainer from "./components/Beatmap/BeatmapContainer";
 
 function App() {
   return (
-    <div className="App">
+    <Router className="App">
       <Navbar />
+      <Switch>
+        <Route exact path="/">
+          <BeatmapCardsContainer />
+        </Route>
+        <Route path="/beatmaps/:id">
+          <BeatmapContainer />
+        </Route>
+      </Switch>
       {/* <ImgContainer source='http://placekitten.com/200/300' alt="nice kitten" cName='big-picture'/>
       <h2> Welcome to the Pool Party!</h2>
       <p className="paragraph">Looking for new maps to play? Or maybe you’re a desperate map pooler needing some fresh maps that fill the right spot on
@@ -32,9 +43,7 @@ finding that hidden gem and presenting a group of beatmaps in an easy way.
       that’s the case. 
       </p> */}
       {/* <BeatmapCardContainer /> */}
-      <BeatmapCardsContainer />
-
-    </div>
+    </Router>
   );
 }
 

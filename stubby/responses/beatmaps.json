@@ -18,5 +18,15 @@
     "mapper": "Ulqui",
     "status": "Ranked",
     "diffcount": 5
+  },
+  {
+    "id": "742005",
+    "background": "https://assets.ppy.sh/beatmaps/742005/covers/card.jpg?1600480886",
+    "artist": "kyou1110 vs Takuya Namba",
+    "title": "\"Alice in Wonderland\" : crazy apple could not live in real life",
+    "mapperID": "920861",
+    "mapper": "-Kazu-",
+    "status": "Ranked",
+    "diffcount": 1
   }
 ]

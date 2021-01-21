@@ -1,5 +1,5 @@
 - request:
-    url: ^/api/beatmaps$
+    url: ^/api/beatmapsets$
     method: GET
   response:
     - status: 200
@@ -7,3 +7,12 @@
       headers:
         content-type: application/json
       file: responses/beatmaps.json
+- request:
+    url: ^/api/beatmapsets/742005$
+    method: GET
+  response:
+    - status: 200
+      latency: 300
+      headers:
+        content-type: application/json
+      file: responses/beatmap.742005.json
