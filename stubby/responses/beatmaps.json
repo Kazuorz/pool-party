@@ -1,0 +1,22 @@
+[
+  {
+    "id": "351126",
+    "background": "https://assets.ppy.sh/beatmaps/351126/covers/card.jpg",
+    "artist": "Caladborg",
+    "title": "invoker",
+    "mapperID": "920861",
+    "mapper": "-Kazu-",
+    "status": "Ranked",
+    "diffcount": 9
+  },
+  {
+    "id": "1182264",
+    "background": "https://assets.ppy.sh/beatmaps/1182264/covers/card.jpg",
+    "artist": "Iglooghost",
+    "title": "Super Ink Burst",
+    "mapperID": "1263669",
+    "mapper": "Ulqui",
+    "status": "Ranked",
+    "diffcount": 5
+  }
+]
