@@ -1,5 +1,6 @@
 import React from "react";
-
+import { FaTrophy } from "react-icons/fa";
+import { IconContext } from "react-icons";
 const BeatmapCard = (props) => {
   return (
     <div>
@@ -22,8 +23,14 @@ const BeatmapCard = (props) => {
         )}
       </div>
       <div>
-        <img src={"../logos/" + props.status + ".png"} alt={props.status} />
-        <img src={"../logos/" + props.isTournament + ".png"} alt="" />
+        <IconContext.Provider
+          value={{ color: props.isTournament ? 'yellow' : 'gray', className: "global-class-name" }}>
+          <div>
+            <FaTrophy />
+          </div>
+        </IconContext.Provider>
+
+        {props.status}
       </div>
       <div>
         <p>Difficulties: {props.diffcount}</p>

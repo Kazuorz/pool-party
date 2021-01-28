@@ -8,7 +8,7 @@ export class BeatmapCardsContainer extends Component {
   }
 
   componentDidMount() {
-    fetch("http://localhost:8882/api/beatmaps")
+    fetch("http://localhost:3010/beatmapsets/latest")
        .then((res) => res.json())
        .then((_beatmaps) => this.setState({beatmaps: _beatmaps}));
   }
