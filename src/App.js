@@ -5,6 +5,7 @@ import Tournaments from "./routes/tournaments"
 import Mappools from "./routes/mappools"
 import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
 import "./App.css";
+import Authcallback from "./routes/authcallback";
 
 
 function App() {
@@ -23,6 +24,9 @@ function App() {
         </Route>
         <Route path="/Mappools">
           <Mappools />
+        </Route>
+        <Route path="/oauth/osu/callback">
+          <Authcallback />
         </Route>
       </Switch>
     </Router>

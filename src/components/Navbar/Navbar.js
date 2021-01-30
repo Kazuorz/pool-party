@@ -11,10 +11,6 @@ class Navbar extends Component {
         this.setState({ clicked: !this.state.clicked })
     }
 
-    goToAuth = () =>{
-        window.location = "http://localhost:3010/oauth/osu";
-    }
-
     render() {
         return(
             <nav className="NavbarItems">
@@ -31,7 +27,7 @@ class Navbar extends Component {
                         )
                     })}
                 </ul>
-                <Button onClick={this.goToAuth}>Log In</Button>
+                <a href={process.env.REACT_APP_API_BASEURL + "/oauth/osu"}><Button >Log In</Button></a>
             </nav>
         )
     }

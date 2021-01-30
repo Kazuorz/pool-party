@@ -1,25 +1,20 @@
-import React, { Component } from 'react'
+import React, { useEffect } from 'react'
 import BeatmapCard from './BeatmapCard'
+import useApi from "../../hooks/useApi";
+const BeatmapCardsContainer = () => {
+  const {
+    get: { state, fetch },
+  } = useApi("/beatmapsets/latest",[]);
 
-export class BeatmapCardsContainer extends Component {
-  
-  state = {
-    beatmaps: []
-  }
-
-  componentDidMount() {
-    fetch("http://localhost:3010/beatmapsets/latest")
-       .then((res) => res.json())
-       .then((_beatmaps) => this.setState({beatmaps: _beatmaps}));
-  }
-
-  render() {
-    return (
+  useEffect(() => {
+    fetch();
+  }, [fetch]);
+  console.log(state)
+  return (
       <ul>
-        {this.state.beatmaps.map((beatmap) => <li key={beatmap.id}><BeatmapCard {...beatmap}/></li>)}
+        {state.value.data.map((beatmap) => <li key={beatmap._id}><BeatmapCard {...beatmap}/></li>)}
       </ul>
-    )
-  }
+  )
 }
 
 export default BeatmapCardsContainer

@@ -24,7 +24,7 @@ const BeatmapCard = (props) => {
       </div>
       <div>
         <IconContext.Provider
-          value={{ color: props.isTournament ? 'yellow' : 'gray', className: "global-class-name" }}>
+          value={{ color: props.is_tournament ? 'yellow' : 'gray', className: "global-class-name" }}>
           <div>
             <FaTrophy />
           </div>

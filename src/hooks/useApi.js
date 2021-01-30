@@ -8,7 +8,7 @@ const useApi = (path, initialValue) => {
 
   const initialState = {
     loading: true,
-    initialValue: initialValue,
+    value: {data : initialValue},
   };
 
   const getState = useAsyncFn(
