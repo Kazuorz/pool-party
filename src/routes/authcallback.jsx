@@ -1,31 +1,40 @@
 import React, { useEffect, useState } from "react";
 import { Redirect } from "react-router-dom";
+import useApi from "../hooks/useApi";
 import useQuery from "../hooks/useQuery";
-import instance from "../services/axios";
+
 const Authcallback = () => {
   const query = useQuery();
-  const [authenticated, setAuthenticated] = useState(false);
+  const {
+    post: { state, fetch: post },
+    setAuthorization,
+  } = useApi("/oauth/osu/token");
 
   useEffect(() => {
-    instance
-      .post("oauth/osu/token", {
-        code: query.get("code"),
-      })
-      .then((response) => {
-        const {
-          data: { token_type, access_token },
-        } = response;
-        const bearerToken = `${token_type} ${access_token}`;
-        instance.defaults.headers.common["Authorization"] = bearerToken;
+    post({
+      code: query.get("code"),
+    });
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
 
-        setAuthenticated(true);
-      });
-  // eslint-disable-next-line react-hooks/exhaustive-deps
-  },[]);
-  if (authenticated) {
+  useEffect(() => {
+    if (!state.error && !state.value.data) {
+      return;
+    }
+    const { token_type, access_token } = state.value.data;
+    const token = `${token_type} ${access_token}`;
+    setAuthorization(token);
+  }, [setAuthorization, state.error, state.value.data]);
+
+  if (state.error) {
+    return <div>Request errored</div>;
+  }
+
+  if (state.loading === false) {
     return <Redirect to="/"></Redirect>;
   }
-  return null;
+
+  return <div>Authenticating...</div>;
 };
 
 export default Authcallback;
