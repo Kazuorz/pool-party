@@ -6,10 +6,12 @@ import Mappools from "./routes/mappools"
 import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
 import "./App.css";
 import Authcallback from "./routes/authcallback";
+import Maprequest from "./components/Forms/maprequest"
 
 
 function App() {
   return (
+    
     <Router className="App">
       <Navbar />
       <Switch>
@@ -27,6 +29,9 @@ function App() {
         </Route>
         <Route path="/oauth/osu/callback">
           <Authcallback />
+        </Route>
+        <Route path="/new/beatmap">
+          <Maprequest />
         </Route>
       </Switch>
     </Router>
