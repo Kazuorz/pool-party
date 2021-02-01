@@ -1,8 +1,8 @@
-import { useCallback, useMemo, useState } from "react";
+import { useCallback, useState } from "react";
 import { useAsyncFn } from "react-use";
 import axios from "../services/axios";
 
-const initialAccessToken = localStorage.getItem("access_token");
+const initialAuthorization = localStorage.getItem("access_token");
 
 const useApi = (path, initialValue) => {
   const [config, setConfig] = useState(
@@ -10,22 +10,22 @@ const useApi = (path, initialValue) => {
     ({
       url: path,
       headers: {
-        Authorization: initialAccessToken,
+        Authorization: initialAuthorization,
       },
     })
   );
+  const [isAuthenticated, setIsAuthenticated] = useState(
+    Boolean(initialAuthorization)
+  );
 
-  const setAuthorization = useCallback((acessToken) => {
+  const setAuthentication = useCallback((token) => {
     setConfig((config) => {
-      config.headers.Authorization = acessToken;
-      localStorage.setItem("access_token", acessToken);
+      config.headers.Authorization = token;
+      localStorage.setItem("access_token", token);
+      setIsAuthenticated(Boolean(token));
       return config;
     });
   }, []);
-
-  const isAuthenticated = useMemo(() => {
-    return Boolean(config.headers.Authorization);
-  }, [config.headers.Authorization]);
 
   const initialState = {
     loading: true,
@@ -59,7 +59,7 @@ const useApi = (path, initialValue) => {
     post: { state: postState[0], fetch: postState[1] },
     put: { state: putState[0], fetch: putState[1] },
     delete: { state: deleteState[0], fetch: deleteState[1] },
-    setAuthorization: setAuthorization,
+    setAuthentication: setAuthentication,
     isAuthenticated: isAuthenticated,
   };
 };
