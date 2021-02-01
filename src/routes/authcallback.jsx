@@ -8,6 +8,7 @@ const Authcallback = () => {
   const {
     post: { state, fetch: post },
     setAuthorization,
+    isAuthenticated,
   } = useApi("/oauth/osu/token");
 
   useEffect(() => {
@@ -29,8 +30,7 @@ const Authcallback = () => {
   if (state.error) {
     return <div>Request errored</div>;
   }
-
-  if (state.loading === false) {
+  if (state.value.status === 200 && isAuthenticated) {
     return <Redirect to="/"></Redirect>;
   }
 
