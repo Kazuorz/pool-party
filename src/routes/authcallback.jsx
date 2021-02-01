@@ -7,12 +7,12 @@ const Authcallback = () => {
   const query = useQuery();
   const {
     post: { state, fetch: post },
-    setAuthenticated: setAuthorization,
+    setAuthentication,
     isAuthenticated,
   } = useApi("/oauth/osu/token");
 
   useEffect(() => {
-    setAuthorization(null);
+    setAuthentication(null);
     post({
       code: query.get("code"),
     });
@@ -25,8 +25,8 @@ const Authcallback = () => {
     }
     const { token_type, access_token } = state.value.data;
     const token = `${token_type} ${access_token}`;
-    setAuthorization(token);
-  }, [setAuthorization, state.error, state.value.data]);
+    setAuthentication(token);
+  }, [setAuthentication, state.error, state.value.data]);
 
   return (
     <div>
