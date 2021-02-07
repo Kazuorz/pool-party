@@ -2,7 +2,11 @@ import React from "react";
 import { Formik, Field, Form } from "formik";
 import useApi from "../../hooks/useApi";
 const Createpool = () => {
-  return (
+    const {
+        post: { state, fetch },
+      } = useApi("/pools");
+  
+    return (
     <div>
       <div>
         <h1>Creating a new pool...</h1>
@@ -11,7 +15,9 @@ const Createpool = () => {
             poolName: "",
           }}
           onSubmit={async (values) => {
-            
+            fetch({
+                name : values.poolName
+            });
           }}
         >
           <Form>

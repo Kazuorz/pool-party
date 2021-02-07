@@ -7,8 +7,8 @@ import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
 import "./App.css";
 import Authcallback from "./routes/authcallback";
 import Maprequest from "./components/Forms/maprequest"
-
-
+import Createpool from "./components/Forms/createpool"
+import CreateTournament from "./components/Forms/createTournament"
 function App() {
   return (
     
@@ -32,6 +32,12 @@ function App() {
         </Route>
         <Route path="/new/beatmap">
           <Maprequest />
+        </Route>
+        <Route path="/new/pool">
+          <Createpool />
+        </Route>
+        <Route path="/new/tournament">
+          <CreateTournament />
         </Route>
       </Switch>
     </Router>
