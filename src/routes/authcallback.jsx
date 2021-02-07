@@ -1,18 +1,17 @@
-import React, { useEffect } from "react";
+import React, { useContext, useEffect } from "react";
 import { Redirect } from "react-router-dom";
+import AppContext from "../contexts/AppContext";
 import useApi from "../hooks/useApi";
 import useQuery from "../hooks/useQuery";
 
 const Authcallback = () => {
+  const { user, authenticate } = useContext(AppContext);
   const query = useQuery();
   const {
     post: { state, fetch: post },
-    setAuthentication,
-    isAuthenticated,
   } = useApi("/oauth/osu/token");
 
   useEffect(() => {
-    setAuthentication(null);
     post({
       code: query.get("code"),
     });
@@ -23,16 +22,15 @@ const Authcallback = () => {
     if (!state.error && !state.value.data) {
       return;
     }
-    const { token_type, access_token } = state.value.data;
-    const token = `${token_type} ${access_token}`;
-    setAuthentication(token);
-  }, [setAuthentication, state.error, state.value.data]);
+    const { access_token } = state.value.data;
+    authenticate(access_token);
+  }, [authenticate, state.error, state.value.data]);
 
   return (
     <div>
       {state.loading && <span>Authenticating...</span>}
       {state.error && <div>Request errored</div>}
-      {state.value.data && isAuthenticated && <Redirect to="/" />}
+      {state.value.data && user && <Redirect to="/" />}
     </div>
   );
 };
