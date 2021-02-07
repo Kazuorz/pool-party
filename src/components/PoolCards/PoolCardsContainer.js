@@ -16,7 +16,7 @@ export class PoolCardsContainer extends Component {
   render() {
     return (
       <ul>
-        {this.state.pool.map((pool) => <li key={pool.id}><PoolCard {...pool}/></li>)}
+        {this.state.pool.map((pool) => <li key={pool._id}><PoolCard {...pool}/></li>)}
       </ul>
     )
   }

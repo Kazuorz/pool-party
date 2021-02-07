@@ -4,10 +4,10 @@ const Mappools = () => {
     return (
         <div>
             <h2>Map pools</h2>
-            <div>
-                <a href="#">Tournament Pools</a>
-                <a href="#">Community Pools</a>
-            </div>
+            {/* <div>
+                <a href="">Tournament Pools</a>
+                <a href="">Community Pools</a>
+            </div> */}
             <PoolCardsContainer />
         </div>
     )

@@ -31,10 +31,10 @@ const Beatmap = (props) => {
         </div>
       </div>
       <div>
-        <i class="far fa-clock"></i> {props.beatmap.total_length}
+        <i className="far fa-clock"></i> {props.beatmap.total_length}
       </div>
       <div>
-        <i class="far fa-stopwatch"></i> {props.beatmap.bpm}
+        <i className="far fa-stopwatch"></i> {props.beatmap.bpm}
       </div>
       <div>
         {/* Acá voy a poner una lista de los torneos en que se jugó cuando tengamos eso en la DB*/}

@@ -16,7 +16,7 @@ export class TournamentCardsContainer extends Component {
   render() {
     return (
       <ul>
-        {this.state.tournaments.map((tournament) => <li key={tournament.id}><TournamentCard {...tournament}/></li>)}
+        {this.state.tournaments.map((tournament) => <li key={tournament._id}><TournamentCard {...tournament}/></li>)}
       </ul>
     )
   }
