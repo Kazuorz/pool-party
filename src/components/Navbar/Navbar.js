@@ -1,33 +1,50 @@
-import React, { Component } from "react";
+import React, { useCallback, useRef, useState } from "react";
+import { Link, useHistory } from "react-router-dom";
+
+import "./Navbar.css";
+
 import { MenuItems } from "./MenuItems";
 import { Button } from "../Button";
-import "./Navbar.css";
-import { Link } from "react-router-dom";
 import AppContext from "../../contexts/AppContext";
+import useQuery from "../../hooks/useQuery";
+import Input from "../Input";
 
-class Navbar extends Component {
-  state = { clicked: false };
+const Navbar = () => {
+  const history = useHistory();
+  const query = useQuery();
+  const [clicked, setClicked] = useState(false);
+  const inputRef = useRef(null);
 
-  handleClick = () => {
-    this.setState({ clicked: !this.state.clicked });
-  };
+  const handleClick = useCallback(() => {
+    setClicked((clicked) => !clicked);
+  }, []);
 
-  render() {
-    return (
-      <AppContext.Consumer>
-        {({ user, isAuthenticated }) => (
-          <nav className="NavbarItems">
-            <Link to="/">
-              <h1 className="navbar-logo">
-                Pool Party <i className="fas fa-swimming-pool"></i>
-              </h1>
-            </Link>
-            <div className="menu-icon" onClick={this.handleClick}>
-              <i
-                className={this.state.clicked ? "fas fa-times" : "fas fa-bars"}
-              ></i>
+  const handleSearchSubmit = useCallback(
+    (event) => {
+      event.preventDefault();
+      history.push({
+        pathname: "/search-results",
+        search: `search=${inputRef.current.value}`,
+      });
+    },
+    [history]
+  );
+
+  return (
+    <AppContext.Consumer>
+      {({ user, isAuthenticated }) => (
+        <section className="Navbar-Container">
+          <nav className="NavbarItems xl:w-3/4 mx-auto space-x-2">
+            <section className="navbar-logo">
+              <Link to="/" className="flex items-center space-x-4">
+                <strong>Pool Party</strong>
+                <i className="fas fa-swimming-pool"></i>
+              </Link>
+            </section>
+            <div className="menu-icon" onClick={handleClick}>
+              <i className={clicked ? "fas fa-times" : "fas fa-bars"} />
             </div>
-            <ul className={this.state.clicked ? "nav-menu active" : "nav-menu"}>
+            <ul className={clicked ? "nav-menu active" : "nav-menu"}>
               {MenuItems.map((item, index) => {
                 return (
                   <li key={index} className={item.cName}>
@@ -41,6 +58,13 @@ class Navbar extends Component {
                 </a>
               )}
             </ul>
+            <form onSubmit={handleSearchSubmit}>
+              <Input
+                ref={inputRef}
+                name="search"
+                defaultValue={query.get("search")}
+              />
+            </form>
             {isAuthenticated ? (
               <div>
                 <img src={user.avatar_url} alt={user.username} />
@@ -52,9 +76,10 @@ class Navbar extends Component {
               </a>
             )}
           </nav>
-        )}
-      </AppContext.Consumer>
-    );
-  }
-}
+        </section>
+      )}
+    </AppContext.Consumer>
+  );
+};
+
 export default Navbar;

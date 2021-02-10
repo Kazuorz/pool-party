@@ -1,0 +1,3 @@
+.normal {
+  @apply border border-black h-8 px-2 rounded-full;
+}

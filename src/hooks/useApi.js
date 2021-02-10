@@ -5,7 +5,7 @@ import { KEYS } from "../constants/localstorage";
 import AppContext from "../contexts/AppContext";
 import axios from "../services/axios";
 
-const useApi = (path, initialValue) => {
+export default function useApi(path, initialValue) {
   const { user } = useContext(AppContext);
   const [config, setConfig] = useState(
     /** @type {import("axios").AxiosRequestConfig} */
@@ -59,6 +59,4 @@ const useApi = (path, initialValue) => {
     put: { state: putState[0], fetch: putState[1] },
     delete: { state: deleteState[0], fetch: deleteState[1] },
   };
-};
-
-export default useApi;
+}
