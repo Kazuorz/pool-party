@@ -1,25 +1,22 @@
-import React, { Component } from 'react'
+import React, { useEffect } from 'react'
+import useApi from '../../hooks/useApi';
 import TournamentCard from './TournamentCard'
 
-export class TournamentCardsContainer extends Component {
-  
-  state = {
-    tournaments: []
-  }
+const TournamentCardsContainer = () => {
+  const {
+    get: { state, fetch},
+  } = useApi("tournaments/latest",[]);
 
-  componentDidMount() {
-    fetch("http://localhost:3010/tournaments/latest")
-       .then((res) => res.json())
-       .then((_tournaments) => this.setState({tournaments: _tournaments}));
-  }
-
-  render() {
-    return (
-      <ul>
-        {this.state.tournaments.map((tournament) => <li key={tournament._id}><TournamentCard {...tournament}/></li>)}
+  useEffect(() => {
+    fetch();
+  }, [fetch])
+  return (
+    <div>
+      <ul className="grid grid-cols-2 gap-4">
+        {state.value.data.map((tournament) => <li key={tournament._id}><TournamentCard {...tournament} /></li>)}
       </ul>
-    )
-  }
+    </div>
+  )
 }
 
 export default TournamentCardsContainer

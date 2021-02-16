@@ -1,25 +1,20 @@
-import React, { Component } from 'react'
-import PoolCard from './PoolCard'
+import React, { useEffect } from "react";
+import PoolCard from "./PoolCard";
+import useApi from "../../hooks/useApi";
 
-export class PoolCardsContainer extends Component {
-  
-  state = {
-    pool: []
-  }
+const PoolCardsContainer = () => {
+  const {
+    get: { state, fetch },
+  } = useApi("pools/latest", []);
 
-  componentDidMount() {
-    fetch("http://localhost:3010/pools/latest")
-       .then((res) => res.json())
-       .then((_pool) => this.setState({pool: _pool}));
-  }
+  useEffect(() => {
+    fetch();
+  }, [fetch]);
+  return (
+    <ul className="grid grid-cols-2 gap-4">
+      {state.value.data.map((pools) => <li key={pools._id}><PoolCard {...pools} /></li>)}
+    </ul>
+  )
+};
 
-  render() {
-    return (
-      <ul>
-        {this.state.pool.map((pool) => <li key={pool._id}><PoolCard {...pool}/></li>)}
-      </ul>
-    )
-  }
-}
-
-export default PoolCardsContainer
+export default PoolCardsContainer;

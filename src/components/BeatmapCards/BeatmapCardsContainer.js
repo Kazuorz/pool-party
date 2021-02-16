@@ -9,7 +9,6 @@ const BeatmapCardsContainer = () => {
   useEffect(() => {
     fetch();
   }, [fetch]);
-  console.log(state)
   return (
       <ul className="grid grid-cols-2 gap-4">
         {state.value.data.map((beatmap) => <li key={beatmap._id}><BeatmapCard {...beatmap}/></li>)}
