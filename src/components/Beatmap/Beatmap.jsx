@@ -1,48 +1,37 @@
 import React from "react";
+import { BiTargetLock, BiStopwatch , BiStar , BiTime} from "react-icons/bi";
+
 const Beatmap = (props) => {
+  
   return (
     <div>
       <div>
-        <div>
-          <img src={props.card} alt="" />
-        </div>
-        <div>
-          <a href={"http://osu.ppy.sh/b/" + props.id}>
-            {props.artist} - {props.title}
-          </a>
-        </div>
-        <div>
-          Mapped by
-          <a href={"http://osu.ppy.sh/u/" + props.user_id}>{props.creator}</a>
-        </div>
-        <div>
-          <img
-            src={"../logos/" + props.status + ".png"}
-            alt={props.status}
-          ></img>
-          <img
-            src={"../logos/tournament_" + props.is_tournament + ".png"}
-            alt={
-              this.props.is_tournament
-                ? "Has been selected before"
-                : "Has not been selected before"
-            }
-          ></img>
-        </div>
+        <img src={props.covers.slimcover} aria-hidden="true" alt=""/>
       </div>
       <div>
-        <i className="far fa-clock"></i> {props.beatmap.total_length}
+        <a href={"http://osu.ppy.sh/beatmapsets/" + props.osu_id}>
+          {props.artist} - {props.title}
+        </a>
       </div>
       <div>
-        <i className="far fa-stopwatch"></i> {props.beatmap.bpm}
+        Mapped by 
+        <a href={"http://osu.ppy.sh/users/" + props.creator_id}>
+          {props.creator}
+        </a>
+        Created at: {props.created_at}
       </div>
       <div>
-        {/* Acá voy a poner una lista de los torneos en que se jugó cuando tengamos eso en la DB*/}
+        <BiTime /><p>{props.song_length}</p>
+      </div>
+      {console.log(props)}
+      <div>
+        <BiStopwatch /> {props.beatmaps[0].bpm}
       </div>
       <div>
-      <ul>
-        {this.props.map((pool_tags) => <li key={props.pool_tags}>{props.pool_tags}</li>)}
-      </ul>
+        <BiStar /> {props.beatmaps[0].difficulty_rating}
+      </div>
+      <div>
+        <BiTargetLock /> {props.beatmaps[0].accuracy}
       </div>
     </div>
   );

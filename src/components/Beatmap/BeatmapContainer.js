@@ -7,7 +7,7 @@ const BeatmapContainer = () => {
   const { id } = useParams();
   const {
     get: { state, fetch },
-  } = useApi("/api/beatmapsets/" + id);
+  } = useApi("/beatmapsets/" + id);
 
   useEffect(() => {
     fetch();

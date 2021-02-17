@@ -1,6 +1,7 @@
 import React from "react";
 import { FaTrophy } from "react-icons/fa";
 import { IconContext } from "react-icons";
+import { Link } from "react-router-dom";
 const BeatmapCard = (props) => {
   return (
     <div className="rounded-xl overflow-auto relative">
@@ -31,11 +32,15 @@ const BeatmapCard = (props) => {
         </section>
 
         <section className="text-white">
-          <a href={"/beatmapsets/" + props.id}>
-            <img src={props.card} aria-hidden alt="" />
-          </a>
-          <h2>{props.title}</h2>
-          <h3>{props.artist}</h3>
+          <Link
+            to={{
+              pathname: `/beatmaps/${props._id}`,
+              state: { beatmap_id: props._id },
+            }}
+          >
+            <h2>{props.title}</h2>
+            <h3>{props.artist}</h3>
+          </Link>
           <p className="text-white font-medium left-0 bottom-16">
             Mapped by:{" "}
             <a href={"osu.ppy.sh/users/" + props.user_id}>{props.creator}</a>

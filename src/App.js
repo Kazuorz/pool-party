@@ -11,7 +11,7 @@ import Beatmaps from "./routes/beatmaps";
 import Tournaments from "./routes/tournaments";
 import Mappools from "./routes/mappools";
 import SearchResults from "./routes/search-results";
-
+import BeatmapContainer from "./components/Beatmap/BeatmapContainer"
 import Authcallback from "./routes/authcallback";
 
 import { AppContextProvider } from "./contexts/AppContext";
@@ -25,6 +25,9 @@ function App() {
           <Switch>
             <Route exact path="/">
               <Landing />
+            </Route>
+            <Route exact path="/beatmaps/:id">
+              <BeatmapContainer />
             </Route>
             <Route path="/beatmaps">
               <Beatmaps />
@@ -50,6 +53,7 @@ function App() {
             <Route path="/search-results">
               <SearchResults />
             </Route>
+            
           </Switch>
         </main>
       </Router>
