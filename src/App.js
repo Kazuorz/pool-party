@@ -12,6 +12,7 @@ import Tournaments from "./routes/tournaments";
 import Mappools from "./routes/mappools";
 import SearchResults from "./routes/search-results";
 import BeatmapContainer from "./components/Beatmap/BeatmapContainer"
+import PoolContainer from "./components/Pool/PoolContainer"
 import Authcallback from "./routes/authcallback";
 
 import { AppContextProvider } from "./contexts/AppContext";
@@ -26,8 +27,11 @@ function App() {
             <Route exact path="/">
               <Landing />
             </Route>
-            <Route exact path="/beatmaps/:id">
+            <Route path="/beatmaps/:id">
               <BeatmapContainer />
+            </Route>
+            <Route path="/pools/:id">
+              <PoolContainer />
             </Route>
             <Route path="/beatmaps">
               <Beatmaps />
@@ -35,7 +39,7 @@ function App() {
             <Route path="/tournaments">
               <Tournaments />
             </Route>
-            <Route path="/Mappools">
+            <Route path="/mappools">
               <Mappools />
             </Route>
             <Route path="/oauth/osu/callback">
@@ -44,7 +48,7 @@ function App() {
             <Route path="/new/beatmap">
               <Maprequest />
             </Route>
-            <Route path="/new/pool">
+            <Route path="/mine/pool">
               <Createpool />
             </Route>
             <Route path="/new/tournament">
@@ -53,7 +57,6 @@ function App() {
             <Route path="/search-results">
               <SearchResults />
             </Route>
-            
           </Switch>
         </main>
       </Router>

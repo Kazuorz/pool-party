@@ -1,4 +1,5 @@
 import React from "react";
+import { Link } from "react-router-dom" ;
 
 export const PoolCard = (props) => {
   return (
@@ -13,10 +14,15 @@ export const PoolCard = (props) => {
           })`,
         }}
       >
+        <Link to={{
+          pathname: `/pools/${props._id}`,
+        }}>
+        
         <h1 className="text-2xl">
           {props.name} - {props.beatmap_amount}{" "}
         </h1>
         <p>Submitted by: {props.created_by.username}</p>
+        </Link>
       </section>
     </div>
   );

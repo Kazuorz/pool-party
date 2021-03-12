@@ -1,13 +1,13 @@
 import React from 'react'
 import PoolCardsContainer from "../components/PoolCards/PoolCardsContainer"
+import { Link } from "react-router-dom";
 const Mappools = () => {
     return (
         <div>
             <h2>Map pools</h2>
-            {/* <div>
-                <a href="">Tournament Pools</a>
-                <a href="">Community Pools</a>
-            </div> */}
+            <div>
+                <Link to="/mine/pool">Create a new pool instead...</Link>
+            </div>
             <PoolCardsContainer />
         </div>
     )
