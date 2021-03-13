@@ -21,7 +21,7 @@ const BeatmapContainer = () => {
     return <Redirect to="/error/500" />;
   }
 
-  return <Beatmap {...state.value.data} />;
+  return <Beatmap beatmap={{...state.value.data}} />;
 };
 
 export default BeatmapContainer;
