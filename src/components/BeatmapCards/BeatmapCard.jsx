@@ -10,7 +10,7 @@ const BeatmapCard = (props) => {
         style={{
           backgroundSize: "cover",
           backgroundBlendMode: "difference",
-          backgroundImage: `linear-gradient(rgba(255,255,255, .4), rgba(255,255,255, .4)), url(${props.covers.cover})`,
+          backgroundImage: `linear-gradient(rgba(0,0,0, .4), rgba(255,255,255, .4)), url(${props.covers.cover})`,
         }}
       >
         <section className="flex justify-between">
@@ -54,7 +54,7 @@ const BeatmapCard = (props) => {
         </section>
       </section>
       <div className="bg-black text-white p-4 py-2">
-        <p>Difficulties: {props.diffcount}</p>
+        <p>Difficulties: {props.diff_amount}</p>
         <p>Related Tags: {props.pool_tags}</p>
       </div>
     </div>
