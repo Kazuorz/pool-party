@@ -66,7 +66,17 @@ const Navbar = () => {
             </form>
             {isAuthenticated ? (
               <div className="p-4">
-                <img src={user.avatar_url} alt={user.username} className="rounded-full h-16 hover:bg-gray-900" onClick={() => {alert("logging off!")}}/>
+                <Link
+                  to={{
+                    pathname: `/users/${user.id}`,
+                  }}
+                >
+                  <img
+                    src={user.avatar_url}
+                    alt={user.username}
+                    className="rounded-full h-16 hover:bg-gray-900"
+                  />
+                </Link>
               </div>
             ) : (
               <a href={process.env.REACT_APP_API_BASEURL + "/oauth/osu"}>

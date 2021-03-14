@@ -51,7 +51,7 @@ const Beatmap = (props) => {
         style={{
           backgroundSize: "cover",
           backgroundBlendMode: "difference",
-          backgroundImage: `linear-gradient(rgba(0,0,0, .4), rgba(255,255,255, .4)), url(${props.beatmap.covers.slimcover})`,
+          backgroundImage: `linear-gradient(rgba(255,255,255, .4), rgba(0,0,0, .4)), url(${props.beatmap.covers.slimcover})`,
         }}
       >
         <div className="col-span-8 bg-gray-300 bg-opacity-10 m-2 p-2 rounded-full text-white list-none flex flex-col">

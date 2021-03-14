@@ -10,6 +10,7 @@ import Landing from "./routes/landing";
 import Beatmaps from "./routes/beatmaps";
 import Tournaments from "./routes/tournaments";
 import Mappools from "./routes/mappools";
+import Profile from "./routes/profile"
 import SearchResults from "./routes/search-results";
 import BeatmapContainer from "./components/Beatmap/BeatmapContainer"
 import PoolContainer from "./components/Pool/PoolContainer"
@@ -32,6 +33,9 @@ function App() {
             </Route>
             <Route path="/pools/:id">
               <PoolContainer />
+            </Route>
+            <Route path="/users/:id">
+              <Profile />
             </Route>
             <Route path="/beatmaps">
               <Beatmaps />
