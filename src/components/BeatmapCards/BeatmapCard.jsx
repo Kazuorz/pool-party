@@ -38,8 +38,8 @@ const BeatmapCard = (props) => {
               state: { beatmap_id: props._id },
             }}
           >
-            <h2>{props.title}</h2>
-            <h3>{props.artist}</h3>
+            <h2 className="truncate ...">{props.title}</h2>
+            <h3 className="truncate ...">{props.artist}</h3>
           </Link>
           <p className="text-white font-medium left-0 bottom-16">
             Mapped by:{" "}

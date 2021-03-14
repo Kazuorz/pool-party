@@ -4,7 +4,7 @@ import { BiTargetLock, BiStopwatch, BiStar, BiTime } from "react-icons/bi";
 import { FaDotCircle, FaTrophy } from "react-icons/fa";
 import { IconContext } from "react-icons/lib";
 import useApi from "../../hooks/useApi";
-import {methods, computeConfig} from '../../services/axios'
+import { methods, computeConfig } from "../../services/axios";
 
 const Beatmap = (props) => {
   const {
@@ -14,7 +14,7 @@ const Beatmap = (props) => {
     handleChange,
     handleBlur,
     handleSubmit,
-    setFieldValue
+    setFieldValue,
   } = props;
   const [selectedIndex, setSelectedIndex] = useState(0);
   const [poolId, setPoolId] = useState(undefined);
@@ -29,9 +29,20 @@ const Beatmap = (props) => {
 
   const handlePoolChange = (event) => {
     const id = event.target.value;
-    const pool = myPools.value.data.find((pool) => pool.id === id)
-    setFieldValue(event.currentTarget.name, pool)
-  }
+    const pool = myPools.value.data.find((pool) => pool.id === id);
+    setFieldValue(event.currentTarget.name, pool);
+  };
+
+  const handleModChange = (event) => {
+    const mod = event.target.value;
+    setFieldValue(event.currentTarget.name, mod);
+  };
+
+  const handleSelectedDiff = (event, index) => {
+    setSelectedIndex(index);
+    const diff = props.beatmap.beatmaps[selectedIndex].version;
+    setFieldValue(event.currentTarget.name, diff);
+  };
 
   return (
     <div className="bg-gray-400">
@@ -47,13 +58,18 @@ const Beatmap = (props) => {
           <ul className="flex">
             {props.beatmap.beatmaps.map((beatmap, index) => (
               <li className="px-4 text-2xl">
-                <button onClick={() => setSelectedIndex(index)}>
+                <button
+                  name="diff"
+                  onClick={(event) => handleSelectedDiff(event, index)}
+                >
                   <FaDotCircle />
                 </button>
               </li>
             ))}
           </ul>
-          <p className="px-4 py-2 ">{props.beatmap.beatmaps[selectedIndex].version}</p>
+          <p className="px-4 py-2 ">
+            {props.beatmap.beatmaps[selectedIndex].version}
+          </p>
         </div>
         <div className="grid grid-cols-12">
           <div className="col-span-4">
@@ -99,10 +115,12 @@ const Beatmap = (props) => {
               <p>{props.beatmap.song_length}</p>
             </div>
             <div className="col-span-1 px-2 m-auto">
-              <BiStopwatch /> {props.beatmap.beatmaps[selectedIndex].bpm + "BPM"}
+              <BiStopwatch />{" "}
+              {props.beatmap.beatmaps[selectedIndex].bpm + "BPM"}
             </div>
             <div className="col-span-1 px-2 m-auto">
-              <BiStar /> {props.beatmap.beatmaps[selectedIndex].difficulty_rating}
+              <BiStar />{" "}
+              {props.beatmap.beatmaps[selectedIndex].difficulty_rating}
             </div>
             <div className="col-span-1 px-2 m-auto">
               <BiTargetLock /> {props.beatmap.beatmaps[selectedIndex].accuracy}
@@ -111,24 +129,69 @@ const Beatmap = (props) => {
         </div>
       </section>
       <div className="p-4 grid grid-cols-12">
-        <h4>Played in:</h4>
-        <div className="col-span-6">
-          <p>
-            {props.beatmap.used_in.length === 0 && "Not included in any pools"}
-            {props.beatmap.used_in.length > 0 && props.beatmap.used_in[0].name}
-          </p>
+        <div className="col-span-6 border-black border-2 border-opacity-20">
+          <div>
+            <h4>Played in:</h4>
+            <p>
+              {props.beatmap.used_in.length === 0 &&
+                "Not included in any pools"}
+              {props.beatmap.used_in.length > 0 &&
+                props.beatmap.used_in[0].name}
+            </p>
+          </div>
+          <div>
+            <h4>Related tags:</h4>
+            <div>
+              {/* codigo precioso para traer los tags del mapa */}Short, Stream,
+              Burst
+            </div>
+          </div>
         </div>
-        <div className="col-span-4 col-start-8">
+        <div className="col-start-1 col-span-4"></div>
+        <div className="col-span-2 col-start-10 row-start-1">
           <form onSubmit={handleSubmit}>
-            <label htmlFor="pool">Add to one of my pools:</label>
-            <select id="pool" name="pool" onChange={handlePoolChange} value={values.poolId}>
-              
+            <label htmlFor="pool" className="block">
+              Add to one of my pools:
+            </label>
+            <select
+              id="pool"
+              name="pool"
+              onChange={handlePoolChange}
+              value={values.poolId}
+              className="block mx-4"
+            >
+              <option disabled selected>
+                Select one of your drafts
+              </option>
               {myPools.value.data.map((pool) => (
-                <option key={pool._id} value={pool._id} label={pool.name}>
-                </option>
+                <option
+                  key={pool._id}
+                  value={pool._id}
+                  label={pool.name}
+                ></option>
               ))}
             </select>
-            <button type="submit">Add</button>
+            <label htmlFor="mod">Mods:</label>
+            <select
+              name="mod"
+              id="mod"
+              onChange={handleModChange}
+              className="block mx-4"
+            >
+              <option value="no_mod" label="No Mod"></option>
+              <option value="hard_rock" label="Hard Rock"></option>
+              <option value="hidden" label="Hidden"></option>
+              <option value="double_time" label="Double Time"></option>
+              <option value="free_mods" label="Free Mods"></option>
+              <option value="flashlight" label="Flashlight"></option>
+              <option value="tie_breaker" label="Tie Breaker"></option>
+            </select>
+            <button
+              type="submit"
+              className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded mx-4 my-4"
+            >
+              Add
+            </button>
           </form>
         </div>
       </div>
@@ -142,13 +205,26 @@ export default withFormik({
     if (values.pool === undefined) {
       return;
     }
-
+    if (values.diff === undefined) {
+      values.diff = props.beatmap.beatmaps[0].version;
+      console.log(values.diff);
+    }
+    if (values.mod === undefined) {
+      values.mod = "no_mod";
+    }
     await methods.patch({
       url: `pools/${values.pool._id}`,
       data: {
-        beatmapsets: [...values.pool.beatmapsets, { reference: props.beatmap._id }],
-      }
-    })
+        beatmapsets: [
+          ...values.pool.beatmapsets,
+          {
+            reference: props.beatmap._id,
+            modifiers: [values.mod],
+            difficulty: values.diff,
+          },
+        ],
+      },
+    });
   },
-  displayName: "BeatmapsWithFormik"
+  displayName: "BeatmapsWithFormik",
 })(Beatmap);
