@@ -12,3 +12,7 @@ h2{
 h3{
   @apply text-xl;
 }
+
+.react-confirm-alert {
+  @apply top-0 absolute h-screen w-screen bg-gray-900 bg-opacity-50 flex items-center justify-center;
+}

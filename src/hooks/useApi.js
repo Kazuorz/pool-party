@@ -1,11 +1,9 @@
-import { useContext, useMemo } from "react";
+import { useMemo } from "react";
 import { useAsyncFn } from "react-use";
 
-import AppContext from "../contexts/AppContext";
-import { computeConfig, methods } from "../services/axios";
+import {  methods } from "../services/axios";
 
 export default function useApi(path, initialValue) {
-  const { user } = useContext(AppContext);
   const config = useMemo(() => ({ url: path }), [path]);
 
   const initialState = {
