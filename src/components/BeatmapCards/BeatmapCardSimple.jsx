@@ -40,11 +40,11 @@ const BeatmapCardSimple = (props) => {
             style={{
               backgroundSize: "cover",
               backgroundBlendMode: "difference",
-              backgroundImage: `linear-gradient(rgba(0,0,0, .4), rgba(255,255,255, .4)), url(${props.reference.covers.cover})`,
+              backgroundImage: `linear-gradient(rgba(0,0,0, .4), rgba(255,255,255, .35)), url(${props.reference.covers.cover})`,
             }}
           >
             <div className="">
-              <h2 className="text-white text-lg truncate ...">
+              <h2 className="text-white text-lg truncate ..." title={props.reference.title}>
                 {props.reference.title}
               </h2>
               <h3 className="text-white text-base truncate ...">

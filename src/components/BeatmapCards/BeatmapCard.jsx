@@ -10,7 +10,7 @@ const BeatmapCard = (props) => {
         style={{
           backgroundSize: "cover",
           backgroundBlendMode: "difference",
-          backgroundImage: `linear-gradient(rgba(0,0,0, .4), rgba(255,255,255, .4)), url(${props.covers.cover})`,
+          backgroundImage: `linear-gradient(rgba(0,0,0, .3), rgba(255,255,255, .3)), url(${props.covers.cover})`,
         }}
       >
         <section className="flex justify-between">

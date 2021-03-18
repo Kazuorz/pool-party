@@ -1,8 +1,38 @@
 import React from "react";
 import BeatmapCardSimple from "../BeatmapCards/BeatmapCardSimple";
 import { FaTrash, FaEdit, FaCaretLeft, FaCaretRight } from "react-icons/fa";
+import { methods } from "../../services/axios";
+import { Redirect } from "react-router";
+import useApi from "../../hooks/useApi";
 
 const Pool = (props) => {
+  async function deletePool(id) {
+    console.log(id)
+    await methods.delete({
+      url: `pools/${id}`,
+    });
+    await <Redirect to="/mappools"/>
+  }
+
+  const {
+    get: { state, fetch: getPool },
+  } = useApi("/pools/" + props._id);
+
+  
+  async function finishPool(id) {
+    console.log(props.beatmapsets)
+    await methods.patch({
+      url: `pools/${id}`,
+      data: {
+        beatmapsets: [...props.beatmapsets],
+        status: "public",
+      },
+    });
+
+    // re-fetch the current pool
+    await getPool();
+  }
+
   return (
     <div>
       <h1 className="text-center text-4xl py-8" title="test">
@@ -49,6 +79,12 @@ const Pool = (props) => {
             </button>
           </div>
         ))}
+      </div>
+      <div>
+        <button className="bg-red-600 hover:bg-red-900 text-white font-bold py-2 px-4 rounded mx-4 my-4"
+        onClick={() => deletePool(props._id)}>delete pool</button>
+        <button className="bg-blue-600 hover:bg-blue-800 text-white font-bold py-2 px-4 rounded mx-4 my-4"
+        onClick={() => finishPool(props._id)}>finish pool</button>
       </div>
     </div>
   );

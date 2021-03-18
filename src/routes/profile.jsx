@@ -12,10 +12,28 @@ const Profile = (props) => {
     fetchUser();
   }, []);
 
+  const {
+    get: {state: beatmapsState, fetch: fetchBeatmaps}
+  } = useApi(`/users/${id}/beatmaps`)
+  useEffect(() => {
+    fetchBeatmaps();
+  }, [])
+  
+  if (userState.loading) {
+    return null;
+  }
+  console.log(beatmapsState)
   return (
     <div className="">
-      {/* <img src={userState.value.data.avatar_url} alt="" className="m-auto" />
-      <h1 className="text-5xl text-center">{userState.value.data.username}</h1> */}
+      <div>
+        <img src={userState.value.data.avatar_url} alt="" className="m-auto" />
+        <h1 className="text-5xl text-center">
+          {userState.value.data.username}
+        </h1>
+      </div>
+      <div className="grid grid-cols-2 gap-4" >
+        
+      </div>
     </div>
   );
 };
