@@ -1,7 +1,7 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import { Redirect, useParams } from "react-router-dom";
 import Pool from "./Pool";
-
+import PoolAlert from './PoolAlert'
 import useAlert from "../../hooks/useAlert";
 import useApi from "../../hooks/useApi";
 import { methods } from "../../services/axios";
@@ -30,6 +30,39 @@ const PoolContainer = () => {
     await getPool();
   }
 
+  const handleModify = (beatmapId) => {
+    const index = state.value.data.beatmapsets.findIndex(
+      (diff) => diff._id === beatmapId
+    );
+    const beatmapset = {...state.value.data.beatmapsets[index]};
+
+    const handleAlertModify =(map, diff, mod) => {
+      // Copy original beatmapset array
+      const beatmapsets = [...state.value.data.beatmapsets]
+      // Update values
+      const index = state.value.data.beatmapsets.findIndex(
+        (diff) => diff._id === map
+      )
+      beatmapsets[index].difficulty = diff;
+      // beatmapset.difficulty = diff;
+      beatmapsets[index].modifiers = mod;
+      // beatmapset.mod = mod;
+      console.log(beatmapsets)
+      // TODO: commit beatmapsets update
+      updatePool(beatmapsets)
+      // console.log(beatmapsets)
+      // updatePool(beatmapsets)
+    }
+
+    alert((alertProps) => 
+      <PoolAlert
+        {...alertProps}
+        beatmapset={beatmapset}
+        onModify={handleAlertModify}
+      />
+    );
+  };
+
   const handleDelete = (beatmapId) => {
     // Remove the array from the list by filtering out
     const beatmapsets = state.value.data.beatmapsets.filter(
@@ -55,6 +88,22 @@ const PoolContainer = () => {
     ));
   };
 
+  const handleReorder = (beatmapId, direction) => {
+    const index = state.value.data.beatmapsets.findIndex(
+      (diff) => diff._id === beatmapId
+    )
+    let beatmapsets = [...state.value.data.beatmapsets]
+    if(direction === "right"){
+      const [takeOut] = beatmapsets.splice(index,1,beatmapsets[index+1])
+      const swap = beatmapsets.splice(index+1,1,takeOut)
+    }
+    if(direction === "left"){
+      const [takeOut] = beatmapsets.splice(index,1,beatmapsets[index-1])
+      const swap = beatmapsets.splice(index-1,1,takeOut)
+    }
+    updatePool(beatmapsets)
+  }
+
   if (state.loading) {
     return null;
   }
@@ -62,7 +111,14 @@ const PoolContainer = () => {
     return <Redirect to="/error/500" />;
   }
 
-  return <Pool {...state.value.data} onDelete={handleDelete} />;
+  return (
+    <Pool
+      {...state.value.data}
+      onDelete={handleDelete}
+      onModify={handleModify}
+      onReorder={handleReorder}
+    />
+  );
 };
 
 export default PoolContainer;

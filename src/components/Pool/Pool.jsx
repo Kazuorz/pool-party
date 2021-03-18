@@ -1,11 +1,13 @@
 import React from "react";
 import BeatmapCardSimple from "../BeatmapCards/BeatmapCardSimple";
-import { FaTrash } from "react-icons/fa";
+import { FaTrash, FaEdit, FaCaretLeft, FaCaretRight } from "react-icons/fa";
 
 const Pool = (props) => {
   return (
     <div>
-      <h1 className="text-center text-4xl py-8">{props.name}</h1>
+      <h1 className="text-center text-4xl py-8" title="test">
+        {props.name}
+      </h1>
 
       <p className="text-2xl font-bold">
         {" "}
@@ -19,13 +21,31 @@ const Pool = (props) => {
       </p>
       <div className="grid grid-cols-3 gap-4">
         {props.beatmapsets.map((beatmap) => (
-          <div>
+          <div key={beatmap._id}>
             <BeatmapCardSimple {...beatmap} />
             <button
-              className="text-white opacity-50 hover:opacity-100 float-right"
+              className="text-black opacity-75 hover:opacity-100 float-right text-2xl"
               onClick={() => props.onDelete(beatmap._id)}
             >
               <FaTrash />
+            </button>
+            <button
+              className="text-black opacity-75 hover:opacity-100 float-right text-2xl"
+              onClick={() => props.onModify(beatmap._id)}
+            >
+              <FaEdit />
+            </button>
+            <button
+              className="text-black opacity-75 hover:opacity-100 float-right text-2xl"
+              onClick={() => props.onReorder(beatmap._id, "right")}
+            >
+              <FaCaretRight />
+            </button>
+            <button
+              className="text-black opacity-75 hover:opacity-100 float-right text-2xl"
+              onClick={() => props.onReorder(beatmap._id, "left")}
+            >
+              <FaCaretLeft />
             </button>
           </div>
         ))}
