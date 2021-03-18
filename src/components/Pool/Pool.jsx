@@ -32,13 +32,12 @@ const Pool = (props) => {
     // re-fetch the current pool
     await getPool();
   }
-
   return (
     <div>
       <h1 className="text-center text-4xl py-8" title="test">
         {props.name}
       </h1>
-
+      
       <p className="text-2xl font-bold">
         {" "}
         This pool's status is "{props.status}".
@@ -50,7 +49,7 @@ const Pool = (props) => {
           : "you cannot modify it anymore."}
       </p>
       <div className="grid grid-cols-3 gap-4">
-        {props.beatmapsets.map((beatmap) => (
+        {props.beatmapsets.map((beatmap,index) => (
           <div key={beatmap._id}>
             <BeatmapCardSimple {...beatmap} />
             <button
@@ -66,12 +65,14 @@ const Pool = (props) => {
               <FaEdit />
             </button>
             <button
+              disabled={index === props.beatmapsets.length-1}
               className="text-black opacity-75 hover:opacity-100 float-right text-2xl"
               onClick={() => props.onReorder(beatmap._id, "right")}
             >
               <FaCaretRight />
             </button>
             <button
+              disabled={index === 0}
               className="text-black opacity-75 hover:opacity-100 float-right text-2xl"
               onClick={() => props.onReorder(beatmap._id, "left")}
             >
