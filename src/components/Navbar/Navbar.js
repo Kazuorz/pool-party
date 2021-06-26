@@ -1,6 +1,6 @@
 import React, { useCallback, useRef, useState } from "react";
 import { Link, useHistory } from "react-router-dom";
-
+import logo from "../../images/LOGORecurso 8@2x.png"
 import "./Navbar.css";
 
 import { MenuItems } from "./MenuItems";
@@ -34,10 +34,9 @@ const Navbar = () => {
       {({ user, isAuthenticated }) => (
         <section className="Navbar-Container">
           <nav className="NavbarItems xl:w-3/4 mx-auto space-x-2">
-            <section className="navbar-logo">
+            <section className="navbar-logo mt-4 w-48 h-auto">
               <Link to="/" className="flex items-center space-x-4">
-                <strong>Pool Party</strong>
-                <i className="fas fa-swimming-pool"></i>
+                <img src={logo} alt=""></img>
               </Link>
             </section>
             <div className="menu-icon" onClick={handleClick}>
@@ -74,7 +73,7 @@ const Navbar = () => {
                   <img
                     src={user.avatar_url}
                     alt={user.username}
-                    className="rounded-full h-16 hover:bg-gray-900"
+                    className="rounded-full h-16 w-16 flex justify-center items-center m-2 bg-gray-700 hover:bg-gray-900"
                   />
                 </Link>
               </div>
