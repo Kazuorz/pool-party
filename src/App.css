@@ -1,6 +1,9 @@
 html, body{
-  @apply bg-gray-300;
-  font-family: 'Nunito', sans-serif;
+  font-family: 'Comfortaa', sans-serif;
+}
+
+main{
+  @apply bg-gray-200;
 }
 
 h1,h2,h3,h4,h5,h6{

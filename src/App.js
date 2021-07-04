@@ -2,6 +2,7 @@ import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
 import "./App.css";
 
 import Navbar from "./components/Navbar/Navbar";
+import Footer from "./components/Footer/Footer";
 import Maprequest from "./components/Forms/maprequest";
 import Createpool from "./components/Forms/createpool";
 import CreateTournament from "./components/Forms/createTournament";
@@ -23,7 +24,7 @@ function App() {
     <AppContextProvider>
       <Router className="App">
         <Navbar />
-        <main className="xl:w-3/4 mx-auto">
+        <main className="xl:w-3/4 mx-auto mb-8 pb-24 overflow-auto">
           <Switch>
             <Route exact path="/">
               <Landing />
@@ -63,6 +64,7 @@ function App() {
             </Route>
           </Switch>
         </main>
+        <Footer />
       </Router>
     </AppContextProvider>
   );

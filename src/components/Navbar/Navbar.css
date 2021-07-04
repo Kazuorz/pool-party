@@ -1,5 +1,6 @@
 .Navbar-Container {
-  background: #3498db;
+  background-color: #171717;
+  @apply overflow-y-hidden
 }
 
 .NavbarItems {
@@ -10,10 +11,6 @@
   font-size: 1.2rem;
 }
 
-.navbar-logo {
-  color: #f1e3f3;
-  cursor: pointer;
-}
 
 .fa-swimming-pool {
   margin-left: 0.5rem;
