@@ -36,8 +36,8 @@ const BeatmapCard = (props) => {
         <section className="text-white">
           <Link
             to={{
-              pathname: `/beatmaps/${props._id}`,
-              state: { beatmap_id: props._id },
+              pathname: `/beatmaps/${props.id}`,
+              state: { beatmap_id: props.id },
             }}
           >
             <h2 className="truncate ...">{props.title}</h2>

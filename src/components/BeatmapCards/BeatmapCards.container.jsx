@@ -1,5 +1,5 @@
 import React, { useEffect } from "react";
-import BeatmapCard from "./BeatmapCard";
+import BeatmapCard from "./BeatmapCard.display";
 import useApi from "../../hooks/useApi";
 const BeatmapCardsContainer = () => {
   const {

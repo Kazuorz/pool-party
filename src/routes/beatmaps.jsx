@@ -3,7 +3,7 @@ import InputGroup from "react-bootstrap/InputGroup";
 import FormControl from "react-bootstrap/FormControl";
 import Button from "react-bootstrap/Button";
 import { FaSearch } from "react-icons/fa";
-import BeatmapCardsContainer from "../components/BeatmapCards/BeatmapCardsContainer"
+import BeatmapCardsContainer from "../components/BeatmapCards/BeatmapCards.container";
 const Beatmaps = () => {
   return (
     <div>
@@ -77,18 +77,10 @@ const Beatmaps = () => {
         </ul>
         <div className="sort-bar">
           <ul>
-            <li>
-              {/* <a href="#">Difficulty</a> */}
-            </li>
-            <li>
-              {/* <a href="#">Favourites</a> */}
-            </li>
-            <li>
-              {/* <a href="#">Play Count</a> */}
-            </li>
-            <li>
-              {/* <a href="#">Updated</a> */}
-            </li>
+            <li>{/* <a href="#">Difficulty</a> */}</li>
+            <li>{/* <a href="#">Favourites</a> */}</li>
+            <li>{/* <a href="#">Play Count</a> */}</li>
+            <li>{/* <a href="#">Updated</a> */}</li>
           </ul>
         </div>
       </div>

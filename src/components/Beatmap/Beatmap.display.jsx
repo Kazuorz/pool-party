@@ -6,6 +6,8 @@ import { IconContext } from "react-icons/lib";
 import useApi from "../../hooks/useApi";
 import { methods, computeConfig } from "../../services/axios";
 
+import PropTypes from "prop-types";
+
 const Beatmap = (props) => {
   const {
     values,
@@ -40,7 +42,7 @@ const Beatmap = (props) => {
 
   const handleSelectedDiff = (event, index) => {
     setSelectedIndex(index);
-    const diff = props.beatmap.beatmaps[selectedIndex].version;
+    const diff = props.beatmaps[selectedIndex].version;
     setFieldValue(event.currentTarget.name, diff);
   };
 
@@ -51,12 +53,12 @@ const Beatmap = (props) => {
         style={{
           backgroundSize: "cover",
           backgroundBlendMode: "difference",
-          backgroundImage: `linear-gradient(rgba(255,255,255, .4), rgba(0,0,0, .4)), url(${props.beatmap.covers.cover})`,
+          backgroundImage: `linear-gradient(rgba(255,255,255, .4), rgba(0,0,0, .4)), url(${props.cover_url})`,
         }}
       >
         <div className="col-span-8 bg-gray-300 bg-opacity-10 m-2 p-2 rounded-full text-white list-none flex flex-col">
           <ul className="flex">
-            {props.beatmap.beatmaps.map((beatmap, index) => (
+            {props.beatmaps.map((beatmap, index) => (
               <li className="px-4 text-2xl">
                 <button
                   name="diff"
@@ -67,38 +69,36 @@ const Beatmap = (props) => {
               </li>
             ))}
           </ul>
-          <p className="px-4 py-2 ">
-            {props.beatmap.beatmaps[selectedIndex].version}
-          </p>
+          <p className="px-4 py-2 ">{props.beatmaps[selectedIndex].version}</p>
         </div>
         <div className="grid grid-cols-12">
           <div className="col-span-4">
             <div className="text-white">
               <a
-                href={"http://osu.ppy.sh/beatmapsets/" + props.beatmap.osu_id}
+                href={"http://osu.ppy.sh/beatmapsets/" + props.osu_id}
                 className="text-3xl"
               >
-                <div>{props.beatmap.title}</div>
-                <div>{props.beatmap.artist}</div>
+                <div>{props.title}</div>
+                <div>{props.artist}</div>
               </a>
             </div>
             <div className="text-white">
               <p className="inline">{"Mapped by: "} </p>
-              <a href={"http://osu.ppy.sh/users/" + props.beatmap.creator_id}>
-                {props.beatmap.creator}
+              <a href={"http://osu.ppy.sh/users/" + props.creator_id}>
+                {props.creator}
               </a>
               <div className="text-white text-xs font-thin">
-                submitted: {props.beatmap.created_at}
+                submitted: {props.created_at}
               </div>
             </div>
             <div className="flex space-x-2">
               <div className="bg-gray-700 opacity rounded-full h-8 text-center flex-initial items-center text-white px-4 inline-flex">
-                <strong>{props.beatmap.status}</strong>
+                <strong>{props.status}</strong>
               </div>
               <div className="bg-gray-700 opacity rounded-full text-3xl px-2">
                 <IconContext.Provider
                   value={{
-                    color: props.beatmap.is_tournament ? "yellow" : "gray",
+                    color: props.is_tournament ? "yellow" : "gray",
                     className: "global-class-name",
                   }}
                 >
@@ -112,18 +112,16 @@ const Beatmap = (props) => {
           <div className="bg-gray-900 text-white col-span-4 grid grid-cols-4 col-start-8 m-2 p-2 rounded-full h-16">
             <div className="col-span-1 px-2 m-auto">
               <BiTime />
-              <p>{props.beatmap.song_length}</p>
+              <p>{props.song_length}</p>
             </div>
             <div className="col-span-1 px-2 m-auto">
-              <BiStopwatch />{" "}
-              {props.beatmap.beatmaps[selectedIndex].bpm + "BPM"}
+              <BiStopwatch /> {props.maps[selectedIndex].bpm + "BPM"}
             </div>
             <div className="col-span-1 px-2 m-auto">
-              <BiStar />{" "}
-              {props.beatmap.beatmaps[selectedIndex].difficulty_rating}
+              <BiStar /> {props.maps[selectedIndex].difficulty_rating}
             </div>
             <div className="col-span-1 px-2 m-auto">
-              <BiTargetLock /> {props.beatmap.beatmaps[selectedIndex].accuracy}
+              <BiTargetLock /> {props.maps[selectedIndex].accuracy}
             </div>
           </div>
         </div>
@@ -133,10 +131,8 @@ const Beatmap = (props) => {
           <div>
             <h4>Played in:</h4>
             <p>
-              {props.beatmap.used_in.length === 0 &&
-                "Not included in any pools"}
-              {props.beatmap.used_in.length > 0 &&
-                props.beatmap.used_in[0].name}
+              {props.used_in.length === 0 && "Not included in any pools"}
+              {props.used_in.length > 0 && props.used_in[0].name}
             </p>
           </div>
           <div>
@@ -199,6 +195,19 @@ const Beatmap = (props) => {
   );
 };
 
+Beatmap.propTypes = {
+  id: PropTypes.number.isRequired,
+  osu_id: PropTypes.number.isRequired,
+  artist: PropTypes.string.isRequired,
+  title: PropTypes.string.isRequired,
+  osu_user_id: PropTypes.number.isRequired,
+  submited_date: PropTypes.string.isRequired,
+  status: PropTypes.string.isRequired,
+  cover_url: PropTypes.string.isRequired,
+  pool_tags: PropTypes.arrayOf(PropTypes.string).isRequired,
+  maps: PropTypes.array.isRequired,
+};
+
 export default withFormik({
   mapPropsToValues: () => ({ pool: undefined }),
   handleSubmit: async (values, { props }) => {
@@ -206,7 +215,7 @@ export default withFormik({
       return;
     }
     if (values.diff === undefined) {
-      values.diff = props.beatmap.beatmaps[0].version;
+      values.diff = props.beatmaps[0].version;
       console.log(values.diff);
     }
     if (values.mod === undefined) {
@@ -218,7 +227,7 @@ export default withFormik({
         beatmapsets: [
           ...values.pool.beatmapsets,
           {
-            reference: props.beatmap._id,
+            reference: props._id,
             modifiers: [values.mod],
             difficulty: values.diff,
           },
