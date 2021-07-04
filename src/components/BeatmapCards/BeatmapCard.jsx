@@ -2,6 +2,8 @@ import React from "react";
 import { FaTrophy } from "react-icons/fa";
 import { IconContext } from "react-icons";
 import { Link } from "react-router-dom";
+import PropTypes from "prop-types";
+
 const BeatmapCard = (props) => {
   return (
     <div className="rounded-xl overflow-auto relative">
@@ -10,7 +12,7 @@ const BeatmapCard = (props) => {
         style={{
           backgroundSize: "cover",
           backgroundBlendMode: "difference",
-          backgroundImage: `linear-gradient(rgba(0,0,0, .3), rgba(255,255,255, .3)), url(${props.covers.cover})`,
+          backgroundImage: `linear-gradient(rgba(0,0,0, .3), rgba(255,255,255, .3)), url(${props.cover_url})`,
         }}
       >
         <section className="flex justify-between">
@@ -45,19 +47,27 @@ const BeatmapCard = (props) => {
             Mapped by:{" "}
             <a href={"osu.ppy.sh/users/" + props.user_id}>{props.creator}</a>
           </p>
-          {props.helpedBy && (
-            <p>
-              Helped by:{" "}
-              <a href={"osu.ppy.sh/users/" + props.helper_id}>{props.helper}</a>
-            </p>
-          )}
         </section>
       </section>
       <div className="bg-black text-white p-4 py-2">
-        <p>Difficulties: {props.diff_amount}</p>
-        <p>Related Tags: {props.pool_tags}</p>
+        <p>Difficulties: {props.maps.length}</p>
+        <p>Related Tags: {props.pool_tags.join(", ")}</p>
       </div>
     </div>
   );
 };
+
+BeatmapCard.propTypes = {
+  id: PropTypes.number.isRequired,
+  osu_id: PropTypes.number.isRequired,
+  artist: PropTypes.string.isRequired,
+  title: PropTypes.string.isRequired,
+  osu_user_id: PropTypes.number.isRequired,
+  submited_date: PropTypes.string.isRequired,
+  status: PropTypes.string.isRequired,
+  cover_url: PropTypes.string.isRequired,
+  pool_tags: PropTypes.arrayOf(PropTypes.string).isRequired,
+  maps: PropTypes.array.isRequired,
+};
+
 export default BeatmapCard;
