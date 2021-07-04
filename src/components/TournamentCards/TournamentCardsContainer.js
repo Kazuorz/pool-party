@@ -5,7 +5,7 @@ import TournamentCard from './TournamentCard'
 const TournamentCardsContainer = () => {
   const {
     get: { state, fetch},
-  } = useApi("tournaments/latest",[]);
+  } = useApi("events/tournaments/latest",[]);
 
   useEffect(() => {
     fetch();

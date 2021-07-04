@@ -2,7 +2,7 @@ import axios from "axios";
 import { KEYS } from "../constants/localstorage";
 
 const baseConfig = {
-  baseURL: process.env.REACT_APP_API_BASEURL,
+  baseURL: '/api',
 };
 
 const instance = axios.create(baseConfig);
